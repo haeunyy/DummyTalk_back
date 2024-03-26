@@ -4,9 +4,7 @@ package com.example.DummyTalk.Common.WebSocket;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.config.annotation.*;
-import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 
@@ -31,13 +29,4 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void onDisconnectEvent(final SessionDisconnectEvent event) {
         System.out.println("종료 감지 : " + event.toString());
     }
-
-//public class WebSocketConfig implements WebSocketConfigurer {
-
-//    @Override
-//    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-//        WebSocketHandler WebSocketHandler;
-//        registry.addHandler( WebSocketHandler, "/my-websocket")
-//                .setAllowedOrigins("*");
-//    }
 }

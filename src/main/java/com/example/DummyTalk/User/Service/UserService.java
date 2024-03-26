@@ -83,7 +83,7 @@ public class UserService  {
             String jwtKey = Base64.getEncoder().encodeToString(keyBytes);
 
             // AWS KMS(AES 256)를 활용한 암호화
-            String encrtptJWT = aesUtil.encrypt(kmsClient, jwtKey);
+//            String encrtptJWT = aesUtil.encrypt(kmsClient, jwtKey);
 
             // 서울시간으로 가져오기 위해 + 9시간
             LocalDateTime currentDateTime = LocalDateTime.now();
@@ -91,7 +91,7 @@ public class UserService  {
 
 
             userDTO.setCreateAt(plus9Hours);                                    // 유저에게 현재 시간 추가
-            userDTO.setUserSecretKey(encrtptJWT);
+            userDTO.setUserSecretKey(jwtKey);
             userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword())); // 비밀번호 인코딩
 
             // 닉네임을 입력하지 않았을 경우 이름으로 등록
@@ -131,22 +131,22 @@ public class UserService  {
 
             // Base64로 인코딩하여 JWT 시크릿 키 생성
             String jwtKey = Base64.getEncoder().encodeToString(keyBytes);
-            
+
             // AWS KMS(AES 256)를 활용한 암호화
-            String encrtptJWT = aesUtil.encrypt(kmsClient, jwtKey);
+//            String encrtptJWT = aesUtil.encrypt(kmsClient, jwtKey);
 
             // 서울시간으로 가져오기 위해 + 9시간
             LocalDateTime currentDateTime = LocalDateTime.now();
             LocalDateTime plus9Hours = currentDateTime.plusHours(9);
 
             UserDTO userDTO = UserDTO.builder()
-                                        .nickname(getEmailUsername(email))
-                                        .credential(credential.substring(0, 400))
-                                        .createAt(plus9Hours)
-                                        .userSecretKey(encrtptJWT)
-                                        .userEmail(email)
-                                        .nationalLanguage("kor_Hang")
-                                        .build();
+                    .nickname(getEmailUsername(email))
+                    .credential(credential.substring(0, 400))
+                    .createAt(plus9Hours)
+                    .userSecretKey(jwtKey)
+                    .userEmail(email)
+                    .nationalLanguage("kor_Hang")
+                    .build();
 
             User user = modelMapper.map(userDTO, User.class);
 
@@ -194,10 +194,10 @@ public class UserService  {
                     }
                 }
                 Friend addFriend = Friend.builder()
-                                            .userId(LuserId)                    // 친구요청을 보낸 사람
-                                            .friendUserId(friend.getUserId())   // 친구요청을 받은 사람
-                                            .accept("N")                        // 수락 대기중
-                                            .build();
+                        .userId(LuserId)                    // 친구요청을 보낸 사람
+                        .friendUserId(friend.getUserId())   // 친구요청을 받은 사람
+                        .accept("N")                        // 수락 대기중
+                        .build();
 
 
                 Friend resultFriend = friendRepository.save(addFriend);
@@ -283,10 +283,10 @@ public class UserService  {
         friend.setAccept("Y");
 
         Friend user = Friend.builder()
-                                .userId(Long.valueOf(userId))
-                                .friendUserId(Long.parseLong(friendId))
-                                .accept("Y")
-                                .build();
+                .userId(Long.valueOf(userId))
+                .friendUserId(Long.parseLong(friendId))
+                .accept("Y")
+                .build();
 
         friendRepository.save(user);
 

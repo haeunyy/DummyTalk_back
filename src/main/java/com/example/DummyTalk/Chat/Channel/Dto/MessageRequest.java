@@ -3,6 +3,7 @@ package com.example.DummyTalk.Chat.Channel.Dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.example.DummyTalk.User.DTO.ChatSenderDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonFormat;

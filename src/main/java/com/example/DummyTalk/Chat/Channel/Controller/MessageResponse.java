@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class MessageResponse {
 
     private MessageRequest chat;
-    private String nickname;
+    private static String nickname;
     private String status;
     @JsonFormat(pattern = "YYYY-MM-DD HH:mm:ss")
     private LocalDateTime createdAt;
@@ -26,16 +26,6 @@ public class MessageResponse {
         this.nickname = nickname;
         this.status = status;
         this.chat = chat;
-    }
-
-    public MessageResponse(String nickname, String status, List<MessageRequest> chatList) {
-        this.nickname = nickname;
-        this.status = status;
-        this.chatList = chatList;
-    }
-
-    public MessageResponse(String status) {
-        this.status = status;
     }
 
     public void setMessageResponse(String nickname, String status, MessageRequest chat) {
